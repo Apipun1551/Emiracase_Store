@@ -12,6 +12,8 @@
 */
 
 //use Illuminate\Routing\Route;
+
+use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Route; //pengganti yang diatas karena error
 
 Route::get('/', function () {
@@ -22,5 +24,6 @@ Route::group(
     ['namespace'=> 'Admin', 'prefix'=>'admin'],
     function(){
         Route::get('dashboard','DashboardController@index');
+        Route::resource('categories','CategoryController');
     }
 );
