@@ -28,7 +28,7 @@ class CategoryController extends Controller
     public function create()
     {
         //untuk menambahkan data
-        return view('admin.categories.form',$this->data)
+        return view('admin.categories.form', $this->data);
     }
 
     /**
