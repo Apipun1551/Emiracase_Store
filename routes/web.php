@@ -11,6 +11,16 @@
 |
 */
 
+//use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Route; //pengganti yang diatas karena error
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(
+    ['namespace'=> 'Admin', 'prefix'=>'admin'],
+    function(){
+        Route::get('dashboard','DashboardController@index');
+    }
+);
