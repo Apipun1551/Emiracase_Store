@@ -14,6 +14,7 @@
                     <h2>{{$formTitle}} Category</h2>
                 </div>
                 <div class="card-body">
+                    @include('admin.partials.flash',['$error'=>$error]) <!-- menampilkan view pesan  -->
                     @if (!empty($category)) <!-- tidak memiliki kategori -->
                         {!! Form::model($category,['url' => ['admin/categories',$category->id],'method'=>'PUT']) !!}
                         {!! Form::hidden('id') !!}
