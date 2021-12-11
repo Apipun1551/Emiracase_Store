@@ -25,6 +25,13 @@
                                     <td>{{$category->name}}</td>
                                     <td>{{$category->slug}}</td>
                                     <td>{{$category->parent_id}}</td>
+                                    <td>
+                                        <a href="{{url('admin/categories/'.$category->id.'/edit')}}" class="btn btn-warning btn-sm">edit</a>
+                                        {!! Form::open(['url'=>'admin/categories/'.$category->id,'class'=>'delete','style'=> 'display:inline-block']) !!}
+                                        {!! Form::hidden('_method', 'DELETE') !!}
+                                        {!! Form::submit('remove', ['class'=>'btn btn-danger btn-sm']) !!}
+                                        {!! Form::close() !!}
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>

@@ -71,7 +71,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        //Menampilkan form category yang ingin di edit
+        $category = Category::findOrFail($id);
+        $this->data['category']=$category;
+        return view('admin.categories.form',$this->data);
     }
 
     /**
@@ -84,6 +87,13 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, $id)
     {
         //
+        $params = $request->except('_token');
+        $params['slug']=Str::slug($params['name']);
+        $category=Category::findOrFail($id);
+        if($category->update($params)){
+            $request->session()->flash('success', 'Kategori telah di edit');
+        }
+        return redirect('admin/categories');
     }
 
     /**
@@ -94,6 +104,11 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //Menghapus data
+        $category = Category::findOrFail($id);
+        if($category->delete()){
+           Session::flash('success', 'Kategori telah di hapus');
+        }
+        return redirect('admin/categories');
     }
 }
