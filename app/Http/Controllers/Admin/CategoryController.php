@@ -30,6 +30,9 @@ class CategoryController extends Controller
     public function create()
     {
         //untuk menambahkan data
+        $categories = Category::orderBy('name','asc')->get();
+
+        $this -> data ['categories'] = $categories->toArray();
         return view('admin.categories.form', $this->data);
     }
 
@@ -44,7 +47,7 @@ class CategoryController extends Controller
         //Menyimpan Input kecuali token
         $params = $request->except('_token');
         $params['slug'] = Str::slug($params['name']);
-        $params['parent_id']= 0;
+        $params['parent_id']= (int)$params['parent_id'];
 
         if (Category::create($params)) {
             Session::flash('success', 'Kategori telah di tambah');
