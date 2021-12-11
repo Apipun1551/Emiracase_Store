@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Http\Requests\CategoryRequest;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request\flash;
 
 class CategoryController extends Controller
 {
@@ -39,8 +41,15 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        //
+        //Menyimpan Input kecuali token
+        $params = $request->except('_token');
+        $params['slug'] = Str::slug($params['name']);
+        $params['parent_id']= 0;
 
+        if (Category::create($params)) {
+            $request->session()->flash('success', 'Kategori telah di tambah');
+        }
+        return redirect('admin\categories');
     }
 
     /**

@@ -35,7 +35,7 @@ class CategoryRequest extends FormRequest
             }
             $slug = 'unique:categories,slug'.$id;
         }else {
-            $name = 'required|unique:categor,column,except,id,parent_id,'.$parentId;
+            $name = 'required|unique:categories,name,NULL,id,parent_id,'.$parentId;
             $slug = 'unique:categories,slug';
         }
         return [
