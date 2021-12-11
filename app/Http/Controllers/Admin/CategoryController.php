@@ -75,6 +75,9 @@ class CategoryController extends Controller
     public function edit($id)
     {
         //Menampilkan form category yang ingin di edit
+        $categories = Category::orderBy('name','asc')->get();
+
+        $this -> data ['categories'] = $categories->toArray();
         $category = Category::findOrFail($id);
         $this->data['category']=$category;
         return view('admin.categories.form',$this->data);
