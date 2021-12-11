@@ -9,6 +9,7 @@
                         <h2>Categories</h2>
                     </div>
                 <div class="card-body">
+                    @include('admin.partials.flash')
                     <table class="table table-bordered table-stripped">
                         <thead>
                             <th>#</th>

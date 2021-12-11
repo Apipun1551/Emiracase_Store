@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Http\Requests\CategoryRequest;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request\flash;
+use Str;
+use Session;
 
 class CategoryController extends Controller
 {
@@ -47,7 +47,7 @@ class CategoryController extends Controller
         $params['parent_id']= 0;
 
         if (Category::create($params)) {
-            $request->session()->flash('success', 'Kategori telah di tambah');
+            Session::flash('success', 'Kategori telah di tambah');
         }
         return redirect('admin\categories');
     }
