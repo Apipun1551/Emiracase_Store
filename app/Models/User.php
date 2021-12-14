@@ -36,4 +36,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //relasi 1-N dengan Product
+    public function product()
+    {
+        return $this->hasMany('App\Models\Product');
+    }
 }
