@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Http\Requests\ProductRequest;
-
+use Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Str;
 class ProductController extends Controller
 {
     public function __construct()
@@ -50,7 +53,26 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        //
+        //Menangkap value dari form product dengan parameter
+        $params = $request->except('_token');
+        $params['slug']=Str::slug($params['name']);
+        $params['user_id']=Auth::user()->id;
+
+        $saved = false;
+        $saved = DB::transaction(function()use ($params){
+            $product = Product::create($params);
+            $product->categories()->sync($params['category_ids']);
+
+            return true;
+        });
+
+        if ($saved) {
+            Session::flash('success','Produk telah disimpan');
+        }else {
+            Session::flash('error','Produk tidak bisa disimpan');
+        }
+
+        return redirect('admin/products');
     }
 
     /**
