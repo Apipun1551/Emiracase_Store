@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,13 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        //Menarik data dari table category untuk dipilih saat menambahkan product
+        $categories= Category::orderBy('name','ASC')->get();
+        $this->data['categories']= $categories->toArray();//Ditampilkan sebagai array
+        $this->data['product']=null; //Saat ini kolom productnya masih kosong
+
+        //Mengembalikan tampilan dengan data ke view form
+        return view('admin.products.form',$this->data);
     }
 
     /**
