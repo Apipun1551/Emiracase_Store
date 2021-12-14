@@ -33,7 +33,7 @@ class ProductController extends Controller
         $categories= Category::orderBy('name','ASC')->get();
         $this->data['categories']= $categories->toArray();//Ditampilkan sebagai array
         $this->data['product']=null; //Saat ini kolom productnya masih kosong
-
+        $this->data['categoryIDs']=null; //Saat ini id kategori productnya masih kosong
         //Mengembalikan tampilan dengan data ke view form
         return view('admin.products.form',$this->data);
     }
