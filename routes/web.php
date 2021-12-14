@@ -21,7 +21,9 @@ Route::get('/', function () {
 });
 
 Route::group(
-    ['namespace'=> 'Admin', 'prefix'=>'admin'],
+    //untuk melindungi halaman di route ini dengan sistem login di auth
+    ['namespace'=> 'Admin', 'prefix'=>'admin','middleware' => ['auth']],
+
     function(){
         Route::get('dashboard','DashboardController@index');
         Route::resource('categories','CategoryController');
@@ -32,6 +34,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
