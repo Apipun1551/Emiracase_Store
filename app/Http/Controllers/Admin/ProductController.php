@@ -15,8 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        //Menarik data dari table melalui model berdasarkan urutan asc dengan 10 data perhalaman
         $this->data['products'] = Product::orderBy('name','ASC')->paginate(10);
+        //Mengembalikan data ke view index products
         return view ('admin.products.index',$this->data);
     }
 
