@@ -15,7 +15,7 @@ class RenameColumnInProductsTable extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             //rename kolom depth menjadi lenght
-            $table->renameColumn('depth','lenght');
+            $table->renameColumn('depth','length');
         });
     }
 
@@ -28,7 +28,7 @@ class RenameColumnInProductsTable extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             //kebalikan yang diatas
-            $table->renameColumn('lenght','depth');
+            $table->renameColumn('length','depth');
         });
     }
 }
