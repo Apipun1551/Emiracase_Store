@@ -34,7 +34,7 @@ class Product extends Model
         return $this->belongsToMany('App\Models\Category','product_categories');
     }
     //relasi ke table status
-    public function statuses ()
+    public static function statuses ()
     {
         return [
             // 3 jenis status
