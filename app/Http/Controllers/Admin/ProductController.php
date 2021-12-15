@@ -98,6 +98,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        if (empty($id)){
+            return redirect('admin/product/create');
+        }
         //Fungsi tombol edit
 
         $product = Product::findOrFail($id);//cari product dari id
@@ -106,6 +109,7 @@ class ProductController extends Controller
         //definisi variable
         $this->data ['categories'] = $categories->toArray(); //menampilkan categories dalam bentuk array
         $this->data ['product'] = $product; //menampilkan data product
+        $this->data ['productID']= $product->id;//mendefinisikan variabel productId untuk form
         //memanggil categori terakhir dipilih
         $this->data ['categoryIDs'] = $product->categories->pluck('id')->toArray(); //objek product dengan relasi categories dan ambil idnya
         //kembali ke form product
@@ -158,5 +162,19 @@ class ProductController extends Controller
            Session::flash('success', 'Product telah di hapus');
         }
         return redirect('admin/products');
+    }
+
+    public function images($id)
+    {
+        if (empty($id)){
+            return redirect('admin/product/create');
+        }
+
+        $product = Product::findOrFail($id);
+
+        $this->data['productID']=$product->id;
+        $this->data['productImages'] = $product->productImages;
+
+        return view('admin.products.images',$this->data);
     }
 }
