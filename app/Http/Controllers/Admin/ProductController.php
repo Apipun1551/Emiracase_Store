@@ -53,26 +53,30 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        //Menangkap value dari form product dengan parameter
+        //Menangkap value dari form product dengan kecuali token
         $params = $request->except('_token');
+        //Mengkonversi slug dari name
         $params['slug']=Str::slug($params['name']);
+        //Id user saat login sebagai user id
         $params['user_id']=Auth::user()->id;
 
-        $saved = false;
+        //proses penyimpanan
+        $saved = false; //inisialisasi
+        //proses penyimpanan product dalam table product
         $saved = DB::transaction(function()use ($params){
-            $product = Product::create($params);
-            $product->categories()->sync($params['category_ids']);
+            $product = Product::create($params); //Menyimpan data yang di tambah
+            $product->categories()->sync($params['category_ids']); //relasikan dengan kategori yang dipilih
 
             return true;
         });
 
-        if ($saved) {
+        if ($saved) { //saved true
             Session::flash('success','Produk telah disimpan');
-        }else {
-            Session::flash('error','Produk tidak bisa disimpan');
+        }else { //saved false
+            Session::flash('error','Produk tidak berhasil disimpan');
         }
 
-        return redirect('admin/products');
+        return redirect('admin/products'); //kembali ke halaman admin product
     }
 
     /**
