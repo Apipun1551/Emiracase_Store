@@ -98,7 +98,18 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        //Fungsi tombol edit
+
+        $product = Product::findOrFail($id);//cari product dari id
+        $categories = Category::orderBy('name','ASC')->get();//cari categories diurutkan ASC nama
+
+        //definisi variable
+        $this->data ['categories'] = $categories->toArray(); //menampilkan categories dalam bentuk array
+        $this->data ['product'] = $product; //menampilkan data product
+        //memanggil categori terakhir dipilih
+        $this->data ['categoryIDs'] = $product->categories->pluck('id')->toArray(); //objek product dengan relasi categories dan ambil idnya
+        //kembali ke form product
+        return view('admin.products.form',$this->data);
     }
 
     /**
