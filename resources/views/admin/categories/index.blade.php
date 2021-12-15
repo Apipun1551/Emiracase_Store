@@ -40,6 +40,8 @@
                             @endforelse
                         </tbody>
                     </table>
+                    <!--Memunculkan tombol next pagination-->
+                    {{$categories->Links()}}
                 </div>
                 <div class="card-footer text-right">
                     <a href="{{url('admin/categories/create')}}" class="btn btn-primary">Tambah Data</a>
