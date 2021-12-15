@@ -70,7 +70,7 @@ class General
 		foreach ($array as $element) {
 			$selected_item = '';
 			if ($element['parent_id']==$parent_id) {
-				if (in_array($element['id'], $selected)) {
+				if (in_array($element['id'], $selected)) { //ditampilkan dalam bentuk array
 					$selected_item = 'selected';
 				}
 				$menu_html .= '<option value="'.$element['id'].'" '.$selected_item.'>';
