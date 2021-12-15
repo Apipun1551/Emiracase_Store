@@ -177,4 +177,17 @@ class ProductController extends Controller
 
         return view('admin.products.images',$this->data);
     }
+
+    public function add_image($id)
+    {
+        if (empty($id)){
+            return redirect('admin/product');
+        }
+        $product = Product::findOrFail($id);
+
+        $this->data['productID'] =$product->id;
+        $this->data['product']=$product;
+
+        return view('admin.products.images_form',$this->data);
+    }
 }
