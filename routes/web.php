@@ -25,9 +25,17 @@ Route::group(
     ['namespace'=> 'Admin', 'prefix'=>'admin','middleware' => ['auth']],
 
     function(){
+        //dashboard
         Route::get('dashboard','DashboardController@index');
+        //category
         Route::resource('categories','CategoryController');
+        //products
         Route::resource('products','ProductController');
+        //image_products
+        Route::get('products/{productID}/images','ProductController@images');
+        Route::get('products/{productID}/add-image','ProductController@add_image');
+        Route::post('products/images/{productID}','ProductController@upload_image');
+        Route::delete('products/images/{imageID}','ProductController@remove_image');
     }
 );
 
