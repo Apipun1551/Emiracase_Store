@@ -197,5 +197,28 @@ class ProductController extends Controller
     public function upload_image(ProductImageRequest $request, $id)
     {
         $product = Product::findOrFail($id);
+
+        if ($request->has('image')) {
+			$image = $request->file('image');
+			$name = $product->slug . '_' . time();
+			$fileName = $name . '.' . $image->getClientOriginalExtension();
+
+			$folder = '/uploads/images';
+
+			$filePath = $image->storeAs($folder, $fileName, 'public');
+
+			$params =[
+				'product_id' => $product->id,
+				'path' => $filePath,
+			];
+
+			if (ProductImage::create($params)) {
+				Session::flash('success', 'Gambar berhasil diupload');
+			} else {
+				Session::flash('error', 'Gambar tidak berhasil diupload');
+			}
+
+			return redirect('admin/products/' . $id . '/images');
+		}
     }
 }
