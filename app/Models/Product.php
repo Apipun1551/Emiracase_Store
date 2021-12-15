@@ -33,6 +33,11 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Models\Category','product_categories');
     }
+    //relasi ke table product image
+    public function productImages()
+    {
+        return $this->hasMany('App\Models\ProductImage');
+    }
     //relasi ke table status
     public static function statuses ()
     {
