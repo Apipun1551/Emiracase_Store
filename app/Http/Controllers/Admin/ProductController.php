@@ -119,9 +119,29 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
-        //
+        //Menyimpan isi form kecuali token
+        $params=$request->except('_token');
+        $params['slug']=Str::slug($params['name']);//mengambil slug dari konversi name
+
+        $product = Product::findOrFail($id); //mengambil product dari id
+
+        $saved= false;//belum di simpan
+        //menyimpan produk dari update
+        $saved = DB::transaction(function () use ($product,$params) {
+            $product->update($params);
+            $product->categories()->sync($params['category_ids']);//menyingkronkan category berdasarkan id
+
+            return true;
+        });
+        if ($saved) { //saved true
+            Session::flash('success','Produk telah disimpan');
+        }else { //saved false
+            Session::flash('error','Produk tidak berhasil disimpan');
+        }
+
+        return redirect('admin/products'); //kembali ke halaman admin product
     }
 
     /**
