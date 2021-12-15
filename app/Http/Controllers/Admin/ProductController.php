@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\ProductImageRequest;
+use App\Models\ProductImage;
+use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -51,7 +54,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(ProductRequest $request) //setiap request memiliki file di folder equest
     {
         //Menangkap value dari form product dengan kecuali token
         $params = $request->except('_token');
@@ -189,5 +192,10 @@ class ProductController extends Controller
         $this->data['product']=$product;
 
         return view('admin.products.image_form',$this->data);
+    }
+
+    public function upload_image(ProductImageRequest $request, $id)
+    {
+        $product = Product::findOrFail($id);
     }
 }
