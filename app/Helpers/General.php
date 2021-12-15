@@ -18,7 +18,7 @@ class General
 		if (isset($options['class'])) {
 			$class_form = $options['class'];
 		}
-
+        //Mengaktifkan categories yang dipilih sebelumnya
 		$selected = [];
 		if (isset($options['selected'])) {
 			$selected = is_array($options['selected']) ? $options['selected'] : [$options['selected']];
