@@ -188,6 +188,6 @@ class ProductController extends Controller
         $this->data['productID'] =$product->id;
         $this->data['product']=$product;
 
-        return view('admin.products.images_form',$this->data);
+        return view('admin.products.image_form',$this->data);
     }
 }
