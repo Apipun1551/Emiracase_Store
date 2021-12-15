@@ -152,6 +152,11 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //Menghapus data
+        $product = Product::findOrFail($id);
+        if($product->delete()){
+           Session::flash('success', 'Product telah di hapus');
+        }
+        return redirect('admin/products');
     }
 }
