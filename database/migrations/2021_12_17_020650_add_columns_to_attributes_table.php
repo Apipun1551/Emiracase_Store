@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnsToAttributeTable extends Migration
+class AddColumnsToAttributesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AddColumnsToAttributeTable extends Migration
      */
     public function up()
     {
-        Schema::table('attribute', function (Blueprint $table) {
+        Schema::table('attributes', function (Blueprint $table) {
             //Menambahkan field di table attribute
             $table->string('type')->after('name'); //menambahkan kolom tipe setelah kolom nama
             $table->string('validation')->after('type')->nullable();
@@ -31,7 +31,7 @@ class AddColumnsToAttributeTable extends Migration
      */
     public function down()
     {
-        Schema::table('attribute', function (Blueprint $table) {
+        Schema::table('attributes', function (Blueprint $table) {
             //
             $table->dropColumn('type');
             $table->dropColumn('validation');
