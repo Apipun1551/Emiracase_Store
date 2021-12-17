@@ -64,11 +64,11 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <legend class="col-form-label pt-0">Configuration</legend>
-                                        <div class="form-group">
+                                        <div class="form-group"><!--Untuk parameter inventori produk-->
                                                 {!! Form::label('is_configurable', 'Use in Configurable Product?') !!}
                                                 {!! Form::select('is_configurable', $booleanOptions , null, ['class' => 'form-control', 'placeholder' => '']) !!}
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group"><!--Untuk kategori saat user menggunakan fungsi filter -->
                                                 {!! Form::label('is_filterable', 'Use in Filtering Product?') !!}
                                                 {!! Form::select('is_filterable', $booleanOptions , null, ['class' => 'form-control', 'placeholder' => '']) !!}
                                         </div>
