@@ -8,7 +8,7 @@
 		<!-- Aplication Brand -->
 		<div class="app-brand">
 			<a href="{{ url('admin/dashboard') }}">
-			<span class="brand-name">LaraShop Dashboard</span>
+			<span class="brand-name">Emiracase Shop</span>
 			</a>
 		</div>
 		<!-- begin sidebar scrollbar -->
