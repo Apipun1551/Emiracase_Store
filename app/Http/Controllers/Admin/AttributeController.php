@@ -131,5 +131,13 @@ class AttributeController extends Controller
     public function destroy($id)
     {
         //
+        $attribute = Attribute::findOrFail($id);
+
+        if($attribute->delete())
+        {
+            Session::flash('success','Attribute berhasil dihapus');
+        }
+
+        return redirect('admin/attributes');
     }
 }
