@@ -36,6 +36,8 @@ Route::group(
         Route::get('products/{productID}/add-image','ProductController@add_image');
         Route::post('products/images/{productID}','ProductController@upload_image');
         Route::delete('products/images/{imageID}','ProductController@remove_image');
+        //attribute product
+        Route::resource('attributes','AttributeController');
     }
 );
 
