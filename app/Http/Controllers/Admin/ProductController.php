@@ -43,6 +43,7 @@ class ProductController extends Controller
         $categories= Category::orderBy('name','ASC')->get();
         $this->data['categories']= $categories->toArray();//Ditampilkan sebagai array
         $this->data['product']=null; //Saat ini kolom productnya masih kosong
+        $this->data['productID']=0;
         $this->data['categoryIDs']=null; //Saat ini id kategori productnya masih kosong
         //Mengembalikan tampilan dengan data ke view form
         return view('admin.products.form',$this->data);
@@ -102,7 +103,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         if (empty($id)){
-            return redirect('admin/product/create');
+            return redirect('admin/products/create');
         }
         //Fungsi tombol edit
 
@@ -170,7 +171,7 @@ class ProductController extends Controller
     public function images($id)
     {
         if (empty($id)){
-            return redirect('admin/product/create');
+            return redirect('admin/products/create');
         }
 
         $product = Product::findOrFail($id);
@@ -184,7 +185,7 @@ class ProductController extends Controller
     public function add_image($id)
     {
         if (empty($id)){
-            return redirect('admin/product');
+            return redirect('admin/products');
         }
         $product = Product::findOrFail($id);
 
@@ -220,5 +221,16 @@ class ProductController extends Controller
 
 			return redirect('admin/products/' . $id . '/images');
 		}
+    }
+
+    public function remove_image($id)
+    {
+        $image = ProductImage::findOrFail($id);
+
+        if($image->delete()){
+            Session::flash('success','Gambar berhasil dihapus');
+        }
+
+        return redirect('admin/products/'.$image->product->id.'/images');
     }
 }
