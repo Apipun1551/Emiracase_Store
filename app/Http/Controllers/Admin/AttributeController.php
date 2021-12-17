@@ -29,6 +29,9 @@ class AttributeController extends Controller
     public function create()
     {
         //
+        $this->data['attribute']=null;
+
+        return view('admin.attributes.form',$this->data);
 
     }
 
