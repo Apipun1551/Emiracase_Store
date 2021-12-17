@@ -9,10 +9,10 @@ use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ProductImageRequest;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
-use Session;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Str;
+use Illuminate\Support\Str;//deklarasi str yang benar
 class ProductController extends Controller
 {
     public function __construct()
