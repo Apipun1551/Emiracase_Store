@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AttributeRequest;
 use App\Models\Attribute;
 use Illuminate\Http\Request;
 use App\Models\AttributeOption;
+
+use Illuminate\Support\Facades\Session;
 
 class AttributeController extends Controller
 {
@@ -58,7 +61,7 @@ class AttributeController extends Controller
 
         if (Attribute::create($params))
         {
-            Session:flash('success','Attribute berhasil disimpan');
+            Session::flash('success','Attribute berhasil disimpan');
         }
 
         return redirect('admin/attributes');
