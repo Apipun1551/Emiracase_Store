@@ -38,6 +38,12 @@ Route::group(
         Route::delete('products/images/{imageID}','ProductController@remove_image');
         //attribute product
         Route::resource('attributes','AttributeController');
+        Route::get('attributes/{attributeID}/options', 'AttributeController@options');//link option
+        Route::get('attributes/{attributeID}/add-option', 'AttributeController@add_option');//form menambahkan option
+        Route::post('attributes/options/{attributeID}', 'AttributeController@store_option');//menyimpan option
+        Route::delete('attributes/options/{optionID}', 'AttributeController@remove_option');//menghapus option
+        Route::get('attributes/options/{optionID}/edit', 'AttributeController@edit_option');//mengubah option
+        Route::put('attributes/options/{optionID}', 'AttributeController@update_option');//untuk update option
     }
 );
 
