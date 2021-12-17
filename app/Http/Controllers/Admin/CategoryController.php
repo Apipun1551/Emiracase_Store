@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Http\Requests\CategoryRequest;
-use Str;
-use Session;
+use Illuminate\Support\Str; //deklarasi str yang benar
+use Illuminate\Support\Facades\Session;
 
 class CategoryController extends Controller
 {
