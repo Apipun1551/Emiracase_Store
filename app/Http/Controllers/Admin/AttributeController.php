@@ -47,9 +47,21 @@ class AttributeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AttributeRequest $request)
     {
         //
+        $params = $request->except('_token');
+        $params ['is_required']=(bool)$params['is_required'];
+        $params ['is_unique']=(bool)$params['is_unique'];
+        $params ['is_configurable']=(bool)$params['is_configurable'];
+        $params ['is_filterable']=(bool)$params['is_filterable'];
+
+        if (Attribute::create($params))
+        {
+            Session:flash('success','Attribute berhasil disimpan');
+        }
+
+        return redirect('admin/attributes');
     }
 
     /**
