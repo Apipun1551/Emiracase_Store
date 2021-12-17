@@ -1,0 +1,44 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class AddColumnsToAttributeTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('attribute', function (Blueprint $table) {
+            //Menambahkan field di table attribute
+            $table->string('type')->after('name'); //menambahkan kolom tipe setelah kolom nama
+            $table->string('validation')->after('type')->nullable();
+            $table->boolean('is_required')->default(false)->after('validation');
+            $table->boolean('is_unique')->default(false)->after('is_required');
+            $table->boolean('is_filterable')->default(false)->after('is_unique');
+            $table->boolean('is_configurable')->default(false)->after('is_filterable');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('attribute', function (Blueprint $table) {
+            //
+            $table->dropColumn('type');
+            $table->dropColumn('validation');
+            $table->dropColumn('is_required');
+            $table->dropColumn('is_unique');
+            $table->dropColumn('is_filterable');
+            $table->dropColumn('is_configurable');
+        });
+    }
+}
