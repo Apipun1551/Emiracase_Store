@@ -8,7 +8,7 @@ use App\Models\Attribute;
 use Illuminate\Http\Request;
 use App\Models\AttributeOption;
 
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Session; //deklarasi session yang benar
 
 class AttributeController extends Controller
 {
