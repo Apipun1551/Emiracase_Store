@@ -8,8 +8,10 @@ class Product extends Model
 {
     //pendefinisian field yang bisa di isi
     protected $fillable = [
+        'parent_id',
         'user_id',
         'sku',
+        'type',
         'name',
         'slug',
         'price',
@@ -26,6 +28,13 @@ class Product extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\User');
+    }
+
+    //relasi dengan product inventory
+    public function productInventory()
+    {
+        //satu product hanya 1 data di product di inventory (1-1)
+        return $this->hasOne('App\Models\ProductInventory');
     }
 
     //relasi ke table categories dengan penghubungnya adalah product categories
