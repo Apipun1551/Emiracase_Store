@@ -42,6 +42,23 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Models\Category','product_categories');
     }
+    //relasi ke table product sendiri yang menghubungkan parent_id
+    public function variants()
+    {
+        //product memiliki banyak variant
+        return $this->hasMany('App\Models\Product','parent_id');
+    }
+    //relasi ke table product sendiri yang menghubungkan parent_id
+    public function parent()
+    {
+        return $this->belongsToMany('App\Models\Product','parent_id');
+    }
+    //relasi ke table product sendiri yang menghubungkan parent_id
+    public function productAttributeValues()
+    {
+        //product memiliki banyak product attribute values
+        return $this->hasMany('App\Models\ProductAttributeValues');
+    }
     //relasi ke table product image
     public function productImages()
     {
@@ -55,6 +72,13 @@ class Product extends Model
             0 => 'draft',
             1 => 'active',
             2 => 'inactive',
+        ];
+    }
+    public static function types()
+    {
+        return [
+            'simple' => 'Simple',
+            'configurable' => 'Configurable',
         ];
     }
 }
