@@ -74,6 +74,14 @@ class Product extends Model
             2 => 'inactive',
         ];
     }
+    //menampilkan nama dari statuses
+    function status_label()
+    {
+        $statuses = $this->statuses();
+
+       return isset($this->status) ? $statuses[$this->status] : null;
+    }
+
     public static function types()
     {
         return [
