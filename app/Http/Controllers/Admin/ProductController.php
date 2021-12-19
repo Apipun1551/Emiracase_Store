@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;//deklarasi str yang benar
 use League\CommonMark\Extension\Attributes\Node\Attributes;
 
+use function PHPSTORM_META\type;
+
 class ProductController extends Controller
 {
     public function __construct()
@@ -64,6 +66,35 @@ class ProductController extends Controller
         return Attribute::where('is_configurable',true)->get();
     }
 
+    private function generateAttributeCombinations($arrays)
+    {
+        //nasted loop untuk mengkombinasikan attribute yang di pilih menjadi varian
+        $result = [[]];
+        foreach ($arrays as $property => $property_values) {
+            $tmp = [];
+            foreach ($result as $result_item) {
+                foreach ($property_values as $property_value) {
+                    $tmp[] = array_merge($result_item, array($property => $property_value));
+                }
+            }
+            $result = $tmp;
+        }
+        return $result;
+    }
+
+    private function generateProductVarians($product,$params)
+    {
+        //pemanggilan configurable attributes
+        $configurableAttributes =$this->getConfigurableAttributes();
+        //deklarasi variable
+        $variantAttributes=[];
+        foreach ($configurableAttributes as $attribute){
+            $variantAttributes[$attribute->code]=$params[$attribute->code];
+        }
+        //mengenerate varian dari attribute yang dipilih
+        $variants =$this-> generateAttributeCombinations($variantAttributes);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -79,17 +110,19 @@ class ProductController extends Controller
         //Id user saat login sebagai user id
         $params['user_id']=Auth::user()->id;
 
-        //proses penyimpanan
-        $saved = false; //inisialisasi
         //proses penyimpanan product dalam table product
-        $saved = DB::transaction(function()use ($params){
+        $product = DB::transaction(function()use ($params){
+            $categorIDs=!empty($params['category_ids']) ? $params['category_ids'] :[];
             $product = Product::create($params); //Menyimpan data yang di tambah
             $product->categories()->sync($params['category_ids']); //relasikan dengan kategori yang dipilih
-
-            return true;
+            //jika type yang di pilih adalah configurable
+            if ($params['type'] == 'configurable'){
+                $this->generateProductVarians($product,$params);//generete variant product
+            }
+            return $product;
         });
 
-        if ($saved) { //saved true
+        if ($product) { //saved true
             Session::flash('success','Produk telah disimpan');
         }else { //saved false
             Session::flash('error','Produk tidak berhasil disimpan');
