@@ -23,23 +23,37 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
+        $qty = 'numeric';
+        $price = 'numeric';
+        $status = '';
+        $weight = 'numeric';
         //kodisi ketika update perlu menambahkan parameter id
-        if($this->method()=='PUT')
+        if ($this->method() == 'PUT')
         {
-            $sku= 'required|unique:products,sku,'.$this->get('id');
-            $name= 'required|unique:products,name,'.$this->get('id');
-        }else { //kodisi ketika create
-            $sku= 'required|unique:products,sku';
-            $name= 'required|unique:products,name';
-        }
+            $type = '';
+            $sku = 'required|unique:products,sku,'. $this->get('id');
+            $name = 'required|unique:products,name,'. $this->get('id');
+            $status = 'required';
 
+            if ($this->get('type') == 'simple') {
+                $qty .= '|required';
+                $price .= '|required';
+                $weight .= '|required';
+            }
+        } else {//kodisi ketika create
+            $type = 'required';
+            $sku = 'required|unique:products,sku';
+            $name = 'required|unique:products,name';
+        }
+        //mengembalikan nilai
         return [
-            //mengembalikan nilai
-            'sku'=>$sku,
-            'name'=>$name,
-            'weight' => 'required|numeric',
-            'price'=> 'required|numeric',
-            'status'=> 'required',
+            'type' => $type,
+            'sku' => $sku,
+            'name' => $name,
+            'price' => $price,
+            'qty' => $qty,
+            'status' => $status,
+            'weight' => $weight,
         ];
     }
 }
