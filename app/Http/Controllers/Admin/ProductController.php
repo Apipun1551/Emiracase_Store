@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\AttributeOption;
+use App\Models\ProductAttributeValue;
 use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ProductImageRequest;
 use App\Models\ProductImage;
@@ -82,6 +84,22 @@ class ProductController extends Controller
         return $result;
     }
 
+    private function convertVariantAsName($variant)
+    {
+        $variantName = '';
+
+        foreach (array_keys($variant) as $key => $code) {
+            $attributeOptionID = $variant[$code];
+            $attributeOption = AttributeOption::find($attributeOptionID);
+
+            if ($attributeOption) {
+                $variantName .= ' - ' . $attributeOption->name;
+            }
+        }
+
+        return $variantName;
+    }
+
     private function generateProductVarians($product,$params)
     {
         //pemanggilan configurable attributes
@@ -93,6 +111,43 @@ class ProductController extends Controller
         }
         //mengenerate varian dari attribute yang dipilih
         $variants =$this-> generateAttributeCombinations($variantAttributes);
+
+        //menyimpan ke table product
+        if ($variants){
+            foreach ($variants as $variant){
+                $variantParams=[
+                    'parent_id'=>$product->id, //reference ke product induk
+                    'user_id' =>Auth::user()->id,//dari id user yang login
+                    'sku'=>$product->sku.'-'.implode('-', array_values($variant)),//ambil sku dari induk+karakter varian
+                    'type' => 'simple',//selalu simpel karena anak product dari product lain
+                    'name' => $product->name . $this->convertVariantAsName($variant), //nama dari induk + nama varian
+                ];
+
+                $variantParams['slug'] = Str::slug($variantParams['name']);//konversi slug dari name
+
+                $newProductVariant = Product::create($variantParams);//menyimpan ke table product
+
+                $categoryIds = !empty($params['category_ids']) ? $params['category_ids'] : [];//ambil dari yang dipilih oleh user
+                $newProductVariant->categories()->sync($categoryIds);//relasi dengan varian awal
+
+                $this->saveProductAttributeValues($newProductVariant, $variant);//Menyimpan informasi attribute dari varian yang di buat
+            }
+        }
+    }
+    //meyimpan value dari attribute yang dipilih
+    private function saveProductAttributeValues($product, $variant)
+    {
+        foreach (array_values($variant) as $attributeOptionID) {
+            $attributeOption = AttributeOption::find($attributeOptionID);
+
+            $attributeValueParams = [
+                'product_id' => $product->id,
+                'attribute_id' => $attributeOption->attribute_id,
+                'text_value' => $attributeOption->name,
+            ];
+
+            ProductAttributeValue::create($attributeValueParams);
+         }
     }
 
     /**
