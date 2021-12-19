@@ -183,7 +183,7 @@ class ProductController extends Controller
             Session::flash('error','Produk tidak berhasil disimpan');
         }
 
-        return redirect('admin/products'); //kembali ke halaman admin product
+        return redirect('admin/products'.$product->id.'/edit'); //kembali ke halaman admin product berdasarkan id
     }
 
     /**
