@@ -3,16 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\Product;
 use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ProductImageRequest;
 use App\Models\ProductImage;
+use Attribute as GlobalAttribute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;//deklarasi str yang benar
+use League\CommonMark\Extension\Attributes\Node\Attributes;
+
 class ProductController extends Controller
 {
     public function __construct()
@@ -42,12 +46,22 @@ class ProductController extends Controller
     {
         //Menarik data dari table category untuk dipilih saat menambahkan product
         $categories= Category::orderBy('name','ASC')->get();
+        $configurableAttributes =$this->getConfigurableAttributes();
+
         $this->data['categories']= $categories->toArray();//Ditampilkan sebagai array
         $this->data['product']=null; //Saat ini kolom productnya masih kosong
         $this->data['productID']=0;
         $this->data['categoryIDs']=null; //Saat ini id kategori productnya masih kosong
+        $this->data['configurableAttributes']=$configurableAttributes; //mengembalikan ke view di atas
         //Mengembalikan tampilan dengan data ke view form
         return view('admin.products.form',$this->data);
+    }
+
+    //hanya di pakai di beberapa tempat
+    private function getConfigurableAttributes()
+    {
+        //ketika yang di pilih adalah configurable maka dikembalikan ke view di atas
+        return Attribute::where('is_configurable',true)->get();
     }
 
     /**
