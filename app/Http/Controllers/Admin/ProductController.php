@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProductInventory;
 use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\Product;
@@ -167,7 +168,7 @@ class ProductController extends Controller
 
         //proses penyimpanan product dalam table product
         $product = DB::transaction(function()use ($params){
-            $categorIDs=!empty($params['category_ids']) ? $params['category_ids'] :[];
+            $categoryIDs=!empty($params['category_ids']) ? $params['category_ids'] :[];
             $product = Product::create($params); //Menyimpan data yang di tambah
             $product->categories()->sync($params['category_ids']); //relasikan dengan kategori yang dipilih
             //jika type yang di pilih adalah configurable
@@ -241,8 +242,15 @@ class ProductController extends Controller
         $saved= false;//belum di simpan
         //menyimpan produk dari update
         $saved = DB::transaction(function () use ($product,$params) {
+            $categoryIDs=!empty($params['category_ids']) ? $params['category_ids'] :[];
             $product->update($params);
-            $product->categories()->sync($params['category_ids']);//menyingkronkan category berdasarkan id
+            $product->categories()->sync($categoryIDs);//menyingkronkan category berdasarkan id
+            //cek simple atau configurable
+            if ($product->type == 'configurable') {
+                $this->updateProductVariants($params);//perlu tambahan 1 parameter
+            } else {
+                ProductInventory::updateOrCreate(['product_id' => $product->id], ['qty' => $params['qty']]);//langsung simpan
+            }
 
             return true;
         });
@@ -254,6 +262,23 @@ class ProductController extends Controller
 
         return redirect('admin/products'); //kembali ke halaman admin product
     }
+
+    private function updateProductVariants($params)
+    {
+        if ($params['variants']) {
+            //menyimpan semua varian yang ada
+            foreach ($params['variants'] as $productParams) {
+                $product = Product::find($productParams['id']);
+                $product->update($productParams);
+
+                $product->status = $params['status'];
+                $product->save();
+
+                ProductInventory::updateOrCreate(['product_id' => $product->id], ['qty' => $productParams['qty']]);
+            }
+        }
+    }
+
 
     /**
      * Remove the specified resource from storage.
