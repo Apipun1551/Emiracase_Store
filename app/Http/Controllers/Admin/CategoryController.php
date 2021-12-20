@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Session;
 
 class CategoryController extends Controller
 {
+    public function __construct() {
+        parent::__construct();
+
+        $this->data['currentAdminMenu'] = 'catalog';
+        $this->data['currentAdminSubMenu'] = 'category';
+    }
     /**
      * Display a listing of the resource.
      *

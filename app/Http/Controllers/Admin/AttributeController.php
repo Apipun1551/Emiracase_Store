@@ -13,11 +13,17 @@ use Illuminate\Support\Facades\Session; //deklarasi session yang benar
 
 class AttributeController extends Controller
 {
+
     public function __construct()
     {
-        $this->data['types']= Attribute::types();
-        $this->data['booleanOptions']= Attribute::booleanOptions();
-        $this->data['validations']= Attribute::validations();
+        parent::__construct();
+
+        $this->data['currentAdminMenu'] = 'catalog';
+        $this->data['currentAdminSubMenu'] = 'attribute';
+
+        $this->data['types'] = Attribute::types();
+        $this->data['booleanOptions'] = Attribute::booleanOptions();
+        $this->data['validations'] = Attribute::validations();
     }
     /**
      * Display a listing of the resource.

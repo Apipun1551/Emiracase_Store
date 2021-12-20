@@ -26,6 +26,11 @@ class ProductController extends Controller
 {
     public function __construct()
     {
+        parent::__construct();//untuk membaca contoller di Controller.php
+
+
+        $this->data['currentAdminMenu']='catalog';
+        $this->data['currentAdminSubMenu']='product';
         $this->data['statuses']=Product::statuses(); //karena penggunaannya dibanyak tempat jadi ditaruh di construct
         $this->data['types']=Product::types();
     }
