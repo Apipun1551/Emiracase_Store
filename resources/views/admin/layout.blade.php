@@ -40,7 +40,7 @@
 	<div id="toaster"></div>
 	<div class="wrapper">
 		<!-- Github Link -->
-		<a href="https://github.com/tafcoder/sleek-dashboard" class="github-link">
+		<!--<a href="https://github.com/tafcoder/sleek-dashboard" class="github-link">
 		<svg width="70" height="70" viewBox="0 0 250 250" aria-hidden="true">
 			<defs>
 			<linearGradient id="grad1" x1="0%" y1="75%" x2="100%" y2="0%">
@@ -51,7 +51,7 @@
 			<path d="M 0,0 L115,115 L115,115 L142,142 L250,250 L250,0 Z" fill="url(#grad1)"></path>
 		</svg>
 		<i class="mdi mdi-github-circle"></i>
-		</a>
+		</a>-->
 
 		@include('admin.partials.sidebar')
 
