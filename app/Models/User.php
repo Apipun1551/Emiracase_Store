@@ -9,7 +9,7 @@ use Spatie\Permission\Traits\HasRoles;//penghubung dengan role dan permission
 
 class User extends Authenticatable
 {
-    //use Notifiable,HasRoles;//untuk role
+    use Notifiable,HasRoles;//untuk role
 
     /**
      * The attributes that are mass assignable.
