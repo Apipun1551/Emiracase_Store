@@ -178,8 +178,8 @@ return [
         //Deklarasi file provider general
         App\Providers\GeneralServiceProvider::class,
         //tambahan untuk user role & permission dengan spatie
-        //Spatie\Permission\PermissionServiceProvider::class,
-        //Laracasts\Flash\FlashServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
     ],
 
     /*
