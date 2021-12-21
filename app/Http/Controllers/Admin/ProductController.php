@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;//deklarasi str yang benar
 use League\CommonMark\Extension\Attributes\Node\Attributes;
 
+
+
 use function PHPSTORM_META\type;
 
 class ProductController extends Controller
@@ -175,7 +177,7 @@ class ProductController extends Controller
         $product = DB::transaction(function()use ($params){
             $categoryIDs=!empty($params['category_ids']) ? $params['category_ids'] :[];
             $product = Product::create($params); //Menyimpan data yang di tambah
-            $product->categories()->sync($params['category_ids']); //relasikan dengan kategori yang dipilih
+            $product->categories()->sync($categoryIDs); //relasikan dengan kategori yang dipilih
             //jika type yang di pilih adalah configurable
             if ($params['type'] == 'configurable'){
                 $this->generateProductVarians($product,$params);//generete variant product
