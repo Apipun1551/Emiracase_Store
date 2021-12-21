@@ -1,4 +1,5 @@
 <?php
+//Template dari tutorial di website https://qcode.in/easy-roles-and-permissions-in-laravel-5-4/
 namespace App;
 
 use Illuminate\Support\Arr;
