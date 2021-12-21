@@ -101,6 +101,8 @@ class CategoryController extends Controller
         //
         $params = $request->except('_token');
         $params['slug']=Str::slug($params['name']);
+        $params['parent_id'] = (int)$params['parent_id'];//Agar bisa mengedit kategori anak ke induk
+
         $category=Category::findOrFail($id);
         if($category->update($params)){
             $request->session()->flash('success', 'Kategori telah di edit');
