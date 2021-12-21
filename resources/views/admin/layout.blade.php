@@ -32,13 +32,11 @@
 	</head>
 	<body class="header-fixed sidebar-fixed sidebar-dark header-light" id="body">
 
-	<script>
-		NProgress.configure({ showSpinner: false });
-		NProgress.start();
-	</script>
+
 	<div class="mobile-sticky-body-overlay"></div>
 	<div id="toaster"></div>
 	<div class="wrapper">
+        <!--Mematikan link ke github-->
 		<!-- Github Link -->
 		<!--<a href="https://github.com/tafcoder/sleek-dashboard" class="github-link">
 		<svg width="70" height="70" viewBox="0 0 250 250" aria-hidden="true">
