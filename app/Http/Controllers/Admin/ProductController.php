@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Authorizable;
 use App\Http\Controllers\Controller;
 use App\Models\ProductInventory;
 use App\Models\Attribute;
@@ -26,6 +27,8 @@ use function PHPSTORM_META\type;
 
 class ProductController extends Controller
 {
+    use Authorizable;
+
     public function __construct()
     {
         parent::__construct();//untuk membaca contoller di Controller.php
@@ -219,6 +222,7 @@ class ProductController extends Controller
         //Fungsi tombol edit
 
         $product = Product::findOrFail($id);//cari product dari id
+        $product->qty=isset($product->productInventory) ? $product->productInventory->qty:null; //mengambil data qty dari inventory
         $categories = Category::orderBy('name','ASC')->get();//cari categories diurutkan ASC nama
 
         //definisi variable
