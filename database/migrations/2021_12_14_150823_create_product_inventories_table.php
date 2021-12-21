@@ -16,13 +16,15 @@ class CreateProductInventoriesTable extends Migration
         Schema::create('product_inventories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('product_attribute_value_id');
+            //dihapus agar bisa dijalankan seeder untuk roles&permission
+            //$table->unsignedBigInteger('product_attribute_value_id');
             $table->integer('qty');
             $table->timestamps();
 
             //ketika produk terhapus maka data di inventori di hapus
             $table -> foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table -> foreign('product_attribute_value_id')->references('id')->on('product_attribute_values')->onDelete('cascade');
+            //dihapus agar bisa dijalankan seeder untuk roles&permission
+            //$table -> foreign('product_attribute_value_id')->references('id')->on('product_attribute_values')->onDelete('cascade');
         });
     }
 
