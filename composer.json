@@ -9,11 +9,14 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5|^8.0",
-        "doctrine/dbal": "^3.2",
+        "doctrine/dbal": "^2.6",
         "fideloper/proxy": "^4.4",
+        "laracasts/flash": "^3.2",
         "laravel/framework": "^6.20.26",
         "laravel/tinker": "^2.5",
-        "laravelcollective/html": "^6.2"
+        "laravelcollective/html": "^6.2",
+        "spatie/laravel-permission": "3.6",
+        "symfony/swiftmailer-bundle": "^3.5"
     },
     "require-dev": {
         "facade/ignition": "^1.16.15",
