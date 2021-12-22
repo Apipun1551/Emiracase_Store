@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Authorizable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AttributeRequest;
 use App\Http\Requests\AttributeOptionRequest;
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Session; //deklarasi session yang benar
 
 class AttributeController extends Controller
 {
+    //Membatasi selain admin
+    use Authorizable;
 
     public function __construct()
     {
