@@ -13,7 +13,14 @@ trait Authorizable
         'update' => 'edit',
         'create' => 'add',
         'store' => 'add',
-        'destroy' => 'delete'
+        'destroy' => 'delete',
+
+        //Agar menu option di operator tidak terprotect
+        'options' => 'add',
+        'store_option'=>'store',
+        'edit_option'=>'edit',
+        'update_option'=>'edit',
+        'remove_option'=>'edit',
     ];
 
     /**
