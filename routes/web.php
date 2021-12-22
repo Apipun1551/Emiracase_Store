@@ -32,18 +32,18 @@ Route::group(
         //products
         Route::resource('products','ProductController');
         //image_products
-        Route::get('products/{productID}/images','ProductController@images');
-        Route::get('products/{productID}/add-image','ProductController@add_image');
-        Route::post('products/images/{productID}','ProductController@upload_image');
-        Route::delete('products/images/{imageID}','ProductController@remove_image');
+        Route::get('products/{productID}/images','ProductController@images')->name('products.images');
+        Route::get('products/{productID}/add-image','ProductController@add_image')->name('products.add_image');
+        Route::post('products/images/{productID}','ProductController@upload_image')->name('products.upload_image');
+        Route::delete('products/images/{imageID}','ProductController@remove_image')->name('products.remove_image');
         //attribute product
         Route::resource('attributes','AttributeController');
-        Route::get('attributes/{attributeID}/options', 'AttributeController@options');//link option
-        Route::get('attributes/{attributeID}/add-option', 'AttributeController@add_option');//form menambahkan option
-        Route::post('attributes/options/{attributeID}', 'AttributeController@store_option');//menyimpan option
-        Route::delete('attributes/options/{optionID}', 'AttributeController@remove_option');//menghapus option
-        Route::get('attributes/options/{optionID}/edit', 'AttributeController@edit_option');//mengubah option
-        Route::put('attributes/options/{optionID}', 'AttributeController@update_option');//untuk update option
+        Route::get('attributes/{attributeID}/options', 'AttributeController@options')->name('attributes.options');//link option
+        Route::get('attributes/{attributeID}/add-option', 'AttributeController@add_option')->name('attributes.add_option');//form menambahkan option
+        Route::post('attributes/options/{attributeID}', 'AttributeController@store_option')->name('attributes.store_option');//menyimpan option
+        Route::delete('attributes/options/{optionID}', 'AttributeController@remove_option')->name('attributes.remove_option');//mencghapus option
+        Route::get('attributes/options/{optionID}/edit', 'AttributeController@edit_option')->name('attributes.edit_option');//mengubah option
+        Route::put('attributes/options/{optionID}', 'AttributeController@update_option')->name('attributes.update_option');//untuk update option
     }
 );
 
