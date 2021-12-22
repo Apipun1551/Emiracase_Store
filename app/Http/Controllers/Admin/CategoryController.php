@@ -7,15 +7,18 @@ use App\Models\Category;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Support\Str; //deklarasi str yang benar
 use Illuminate\Support\Facades\Session;
-
+use App\Authorizable;
 class CategoryController extends Controller
 {
+    use Authorizable;
+
     public function __construct() {
         parent::__construct();
 
         $this->data['currentAdminMenu'] = 'catalog';
         $this->data['currentAdminSubMenu'] = 'category';
     }
+
     /**
      * Display a listing of the resource.
      *
