@@ -44,6 +44,9 @@ Route::group(
         Route::delete('attributes/options/{optionID}', 'AttributeController@remove_option')->name('attributes.remove_option');//mencghapus option
         Route::get('attributes/options/{optionID}/edit', 'AttributeController@edit_option')->name('attributes.edit_option');//mengubah option
         Route::put('attributes/options/{optionID}', 'AttributeController@update_option')->name('attributes.update_option');//untuk update option
+
+        Route::resource('roles', 'RoleController');//Halaman roles
+        Route::resource('users', 'UserController');//halaman user
     }
 );
 
