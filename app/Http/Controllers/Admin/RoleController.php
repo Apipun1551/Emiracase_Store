@@ -7,7 +7,7 @@ use App\Models\Role;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Authorizable;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Illuminate\Support\Facades\Session;
 
 class RoleController extends Controller
 {
@@ -45,6 +45,12 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request,['name'=>'required|unique:roles']);
+        if (Role::create($request->only('name'))) {
+            Session::flash('success','Role baru ditambahkan');
+        }
+
+        return redirect('admin/roles');
     }
 
     /**
@@ -79,6 +85,16 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         //
+        Session::flash('success',$role->name.' permission berhasil di update');
+        if($role->name =="Admin"){
+            $role->syncPermissions(Permission::all());
+
+            return redirect('admin/roles');
+        }
+
+        $permissions = $request->get('permissions',[]);
+        $role ->syncPermissions($permissions);
+        return redirect('admin/roles');
     }
 
     /**
