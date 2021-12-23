@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use App\Authorizable;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class RoleController extends Controller
 {
+    use Authorizable;
     /**
      * Display a listing of the resource.
      *
