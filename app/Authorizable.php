@@ -17,7 +17,7 @@ trait Authorizable
 
         //Agar menu option di operator tidak terprotect
         'options' => 'add',
-        'store_option'=>'store',
+        'store_option'=>'add',
         'edit_option'=>'edit',
         'update_option'=>'edit',
         'remove_option'=>'edit',
