@@ -17,6 +17,7 @@
 			<!-- sidebar menu -->
 			<ul class="nav sidebar-inner" id="sidebar-menu">
                 <!--Menyesuaikan menu active-->
+                <!--Menu Catalog-->
 				<li  class="has-sub  {{ ($currentAdminMenu == 'catalog') ? 'expand active' : ''}}" >
 					<a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#dashboard"
 						aria-expanded="false" aria-controls="dashboard">
@@ -44,12 +45,14 @@
 						</div>
 					</ul>
 				</li>
+                <!--Menu Role & Users-->
 				<li  class="has-sub {{ ($currentAdminMenu == 'role-user') ? 'expand active' : ''}}">
 					<a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#auth"
 						aria-expanded="false" aria-controls="dashboard">
 						<i class="mdi mdi-account-multiple-outline"></i>
 						<span class="nav-text">Users &amp; Roles</span> <b class="caret"></b>
 					</a>
+
 					<ul class="collapse {{ ($currentAdminMenu == 'role-user') ? 'show' : ''}}"  id="auth"
 						data-parent="#sidebar-menu">
 						<div class="sub-menu">
