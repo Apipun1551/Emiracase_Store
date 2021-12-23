@@ -1,4 +1,4 @@
-<!--
+ <!--
 	====================================
 	——— LEFT SIDEBAR WITH FOOTER
 	=====================================
@@ -16,28 +16,26 @@
 
 			<!-- sidebar menu -->
 			<ul class="nav sidebar-inner" id="sidebar-menu">
-                <!--Menyesuaikan menu active-->
-                <!--Menu Catalog-->
-				<li  class="has-sub  {{ ($currentAdminMenu == 'catalog') ? 'expand active' : ''}}" >
+				<li  class="has-sub active expand" >
 					<a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#dashboard"
 						aria-expanded="false" aria-controls="dashboard">
 						<i class="mdi mdi-view-dashboard-outline"></i>
 						<span class="nav-text">Catalog</span> <b class="caret"></b>
 					</a>
-					<ul  class="collapse  {{ ($currentAdminMenu == 'catalog') ? 'show' : ''}}"  id="dashboard"
+					<ul  class="collapse show"  id="dashboard"
 						data-parent="#sidebar-menu">
 						<div class="sub-menu">
-							<li  class="{{ ($currentAdminSubMenu == 'product') ? 'active' : ''}}">
+							<li  class="active" >
 								<a class="sidenav-item-link" href="{{ url('admin/products')}}">
 								<span class="nav-text">Products</span>
 								</a>
 							</li>
-							<li class="{{ ($currentAdminSubMenu == 'category') ? 'active' : ''}}">
+							<li>
 								<a class="sidenav-item-link" href="{{ url('admin/categories')}}">
 								<span class="nav-text">Categories</span>
 								</a>
 							</li>
-							<li class="{{ ($currentAdminSubMenu == 'attribute') ? 'active' : ''}}">
+							<li>
 								<a class="sidenav-item-link" href="{{ url('admin/attributes')}}">
 								<span class="nav-text">Attributes</span>
 								</a>
@@ -45,23 +43,21 @@
 						</div>
 					</ul>
 				</li>
-                <!--Menu Role & Users-->
-				<li  class="has-sub {{ ($currentAdminMenu == 'role-user') ? 'expand active' : ''}}">
+				<li  class="has-sub" >
 					<a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#auth"
 						aria-expanded="false" aria-controls="dashboard">
 						<i class="mdi mdi-account-multiple-outline"></i>
 						<span class="nav-text">Users &amp; Roles</span> <b class="caret"></b>
 					</a>
-
-					<ul class="collapse {{ ($currentAdminMenu == 'role-user') ? 'show' : ''}}"  id="auth"
+					<ul  class="collapse"  id="auth"
 						data-parent="#sidebar-menu">
 						<div class="sub-menu">
-							<li  class="{{ ($currentAdminSubMenu == 'user') ? 'active' : ''}}" >
+							<li  class="active" >
 								<a class="sidenav-item-link" href="{{ url('admin/users')}}">
 								<span class="nav-text">Users</span>
 								</a>
 							</li>
-							<li class="{{ ($currentAdminSubMenu == 'role') ? 'active' : ''}}">
+							<li>
 								<a class="sidenav-item-link" href="{{ url('admin/roles')}}">
 								<span class="nav-text">Roles</span>
 								</a>
