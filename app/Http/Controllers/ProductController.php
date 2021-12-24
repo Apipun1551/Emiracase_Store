@@ -19,7 +19,7 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $this->data['product']=Product::active()->paginate(9); //Memanggil product status active 9 perhalaman
+        $this->data['products']=Product::active()->paginate(9); //Memanggil product status active 9 perhalaman
 
         return $this->load_theme('products.index',$this->data);
     }
