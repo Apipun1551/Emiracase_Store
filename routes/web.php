@@ -16,9 +16,7 @@
 use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Route; //pengganti yang diatas karena error
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
 Route::group(
     //untuk melindungi halaman di route ini dengan sistem login di auth
