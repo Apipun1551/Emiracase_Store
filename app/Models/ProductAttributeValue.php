@@ -24,4 +24,22 @@ class ProductAttributeValue extends Model
     {
         return $this->belongsTo('App\Models\Product');
     }
+
+    public function attribute()
+    {
+        return $this->belongsTo('App\Models\Attribute');
+    }
+    //untuk Menarik data ke show product
+    public static function getAttributeOptions($product,$attributeCode)
+    {
+        $productVarianIDs=$product->variants->pluck('id');
+        $attribute = Attribute::where('code',$attributeCode)->first();
+
+        $attributeOptions = ProductAttributeValue::where('attribute_id',$attribute->id)
+                            ->whereIn('product_id',$productVarianIDs)
+                            ->get();
+
+        return $attributeOptions;
+    }
+
 }
