@@ -46,7 +46,7 @@ class Product extends Model
     public function variants()
     {
         //product memiliki banyak variant
-        return $this->hasMany('App\Models\Product','parent_id');
+        return $this->hasMany('App\Models\Product','parent_id')->orderBy('price','ASC');
     }
     //relasi ke table product sendiri yang menghubungkan parent_id
     public function parent()
@@ -94,5 +94,10 @@ class Product extends Model
         return $query->where('status',1)
                 ->where('parent_id',NULL)
                 ->orderBy('created_at','DESC');
+    }
+
+    function price_label()
+    {
+        return ($this->variants->count()>0) ? $this->variants->first()->price : $this->price;
     }
 }
