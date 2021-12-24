@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Session;
 class UserController extends Controller
 {
     use Authorizable;
+    public function __construct()
+    {
+        parent::__construct();//untuk membaca contoller di Controller.php
+
+        $this->data['currentAdminMenu']='role-user';//ketika di user maka menjadi catalog
+        $this->data['currentAdminSubMenu']='user'; //submenu catalog adalah user
+    }
     /**
      * Display a listing of the resource.
      *
