@@ -23,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('themes.ezone.home');
+        //agar dinamis
+        return $this->load_theme('home');
     }
 }
