@@ -75,11 +75,11 @@
 								<div class="quick-view-select">
 									<div class="select-option-part">
 										<label>Bahan*</label>
-										{!! Form::select('bahan', $bahan , null, ['class' => 'select', 'placeholder' => '- Please Select -']) !!}
+										{!! Form::select('bahans', $bahans , null, ['class' => 'select', 'placeholder' => '- Please Select -']) !!}
 									</div>
 									<div class="select-option-part">
 										<label>Warna*</label>
-										{!! Form::select('warna', $warna , null, ['class' => 'select', 'placeholder' => '- Please Select -']) !!}
+										{!! Form::select('warnas', $warnas , null, ['class' => 'select', 'placeholder' => '- Please Select -']) !!}
 									</div>
 								</div>
 							@endif
