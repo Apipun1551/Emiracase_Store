@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route; //pengganti yang diatas karena error
 
 Route::get('/', 'HomeController@index');
 Route::get('/products','ProductController@index');
+Route::get('/product/{slug}','ProductController@show'); //memanggil detail product dengan parameter slug
 
 Route::group(
     //untuk melindungi halaman di route ini dengan sistem login di auth
