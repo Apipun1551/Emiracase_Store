@@ -74,12 +74,12 @@
 							@if ($product->type == 'configurable')
 								<div class="quick-view-select">
 									<div class="select-option-part">
-										<label>Size*</label>
-										{!! Form::select('size', $sizes , null, ['class' => 'select', 'placeholder' => '- Please Select -']) !!}
+										<label>Bahan*</label>
+										{!! Form::select('bahan', $bahan , null, ['class' => 'select', 'placeholder' => '- Please Select -']) !!}
 									</div>
 									<div class="select-option-part">
-										<label>Color*</label>
-										{!! Form::select('color', $colors , null, ['class' => 'select', 'placeholder' => '- Please Select -']) !!}
+										<label>Warna*</label>
+										{!! Form::select('warna', $warna , null, ['class' => 'select', 'placeholder' => '- Please Select -']) !!}
 									</div>
 								</div>
 							@endif
