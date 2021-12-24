@@ -62,7 +62,7 @@ class Product extends Model
     //relasi ke table product image
     public function productImages()
     {
-        return $this->hasMany('App\Models\ProductImage');
+        return $this->hasMany('App\Models\ProductImage')->orderBy('id','DESC');//Mengambil gambar terbaru
     }
     //relasi ke table status
     public static function statuses ()
