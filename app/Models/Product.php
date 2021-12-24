@@ -89,4 +89,10 @@ class Product extends Model
             'configurable' => 'Configurable',
         ];
     }
+    //jika yang dipanggil di productcontroller adalah active maka yang munculadalah status nilai 1
+    public function scopeActive($query){
+        return $query->where('status',1)
+                ->where('parent_id',NULL)
+                ->orderBy('created_at','DESC');
+    }
 }
