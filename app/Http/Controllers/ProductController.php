@@ -108,7 +108,7 @@ class ProductController extends Controller
                                         ->where('text_value', $attributeOption->name);
             });
         }
-
+        //Fungsi sort
         if ($sort = preg_replace('/\s+/', '',$request->query('sort'))) {
             $availableSorts = ['price', 'created_at'];
             $availableOrder = ['asc', 'desc'];
