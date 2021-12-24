@@ -57,7 +57,7 @@ class Product extends Model
     public function productAttributeValues()
     {
         //product memiliki banyak product attribute values
-        return $this->hasMany('App\Models\ProductAttributeValues');
+        return $this->hasMany('App\Models\ProductAttributeValue','parent_product_id');
     }
     //relasi ke table product image
     public function productImages()
