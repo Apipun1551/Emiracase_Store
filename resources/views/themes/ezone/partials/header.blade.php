@@ -169,7 +169,7 @@
                     </ul>
                 </div>
                 <div class="furniture-search">
-                    <form action="{{ url('products') }}" method="GET">
+                    <form action="{{ url('products') }}" method="GET"> <!--menghubungkan ke product controller-->
                         <input placeholder="I am Searching for . . ." type="text" name="q" value="{{ $q }}">
                         <button>
                             <i class="ti-search"></i>
