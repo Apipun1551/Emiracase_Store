@@ -5,4 +5,3 @@
         No product found!
     @endforelse
 </div>
-© 2021 GitHub, Inc.
