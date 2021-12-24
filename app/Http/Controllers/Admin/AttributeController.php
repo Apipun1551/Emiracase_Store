@@ -19,10 +19,10 @@ class AttributeController extends Controller
 
     public function __construct()
     {
-        parent::__construct();
+        parent::__construct();//untuk membaca contoller di Controller.php
 
-        $this->data['currentAdminMenu'] = 'catalog';
-        $this->data['currentAdminSubMenu'] = 'attribute';
+        $this->data['currentAdminMenu']='catalog';//ketika di attribute maka menjadi catalog
+        $this->data['currentAdminSubMenu']='attribute'; //submenu catalog adalah attribute
 
         $this->data['types'] = Attribute::types();
         $this->data['booleanOptions'] = Attribute::booleanOptions();
