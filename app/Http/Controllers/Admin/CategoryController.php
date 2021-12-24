@@ -13,10 +13,10 @@ class CategoryController extends Controller
     use Authorizable;
 
     public function __construct() {
-        parent::__construct();
+        parent::__construct();//untuk membaca contoller di Controller.php
 
-        $this->data['currentAdminMenu'] = 'catalog';
-        $this->data['currentAdminSubMenu'] = 'category';
+        $this->data['currentAdminMenu']='catalog';//ketika di category maka menjadi catalog
+        $this->data['currentAdminSubMenu']='category'; //submenu catalog adalah category
     }
 
     /**
