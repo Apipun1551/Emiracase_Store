@@ -3,13 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Furniture - eCommerce HTML5 Template</title>
+        <title>Emiracase</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('themes/ezone/assets/img/favicon.png') }}">
 
 		<!-- all css here -->
+        <!-- Disesuaikan dengan penyimpanan folder -->
         <link rel="stylesheet" href="{{ asset('themes/ezone/assets/css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('themes/ezone/assets/css/magnific-popup.css') }}">
         <link rel="stylesheet" href="{{ asset('themes/ezone/assets/css/animate.css') }}">
@@ -36,6 +37,7 @@
         @include('themes.ezone.partials.modals')
 
 		<!-- all js here -->
+        <!-- Disesuaikan dengan penyimpanan folder -->
         <script src="{{ asset('themes/ezone/assets/js/vendor/jquery-1.12.0.min.js') }}"></script>
         <script src="{{ asset('themes/ezone/assets/js/popper.js') }}"></script>
         <script src="{{ asset('themes/ezone/assets/js/bootstrap.min.js') }}"></script>
