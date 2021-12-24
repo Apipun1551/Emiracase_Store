@@ -25,9 +25,9 @@ class Controller extends BaseController
         $this->data['currentAdminSubMenu'] = '';//untuk sub menu (meng-override )
     }
 
-
+    //protected agar bisa diakses di controller dibawahnya
     protected function load_theme($view, $data = [])
     {
-        return view('themes/'. env('APP_THEME') .'/'. $view, $data);
+        return view('themes/'. env('APP_THEME') .'/'. $view, $data); //mengambil dari env
     }
 }
