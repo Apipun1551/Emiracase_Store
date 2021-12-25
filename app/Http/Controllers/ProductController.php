@@ -34,15 +34,16 @@ class ProductController extends Controller
 										->where('is_filterable', 1);
                                 })->orderBy('name', 'asc')->get();
 
-        $this->data['sorts'] = [
+        //MEMATIKAN FUNGSI SORT
+        /*$this->data['sorts'] = [
             url('products') => 'Default',
             url('products?sort=price-asc') => 'Price - Low to High',
             url('products?sort=price-desc') => 'Price - High to Low',
             url('products?sort=created_at-desc') => 'Newest to Oldest',
             url('products?sort=created_at-asc') => 'Oldest to Newest',
-        ];
+        ];*/
 
-        $this->data['selectedSort'] = url('products');
+        //$this->data['selectedSort'] = url('products');
     }
     /**
      * Display a listing of the resource.
@@ -56,33 +57,12 @@ class ProductController extends Controller
 
         $products=$this->searchProducts($products, $request);
         $product=$this->filterProductsByPriceRange($products,$request);
+        $products=$this->filterProductsByAttribute($products, $request);
+        //$product=$this->sortProducts($products,$request);
         //deklarasi nilai
 
-
-        if ($attributeOptionID = $request->query('option')) {
-            $attributeOption = AttributeOption::findOrFail($attributeOptionID);
-
-            //menarik produk yang memiliki product atribute tertentu
-            $products = $products->whereHas('ProductAttributeValues', function ($query) use ($attributeOption) {
-                                    $query->where('attribute_id', $attributeOption->attribute_id)
-                                        ->where('text_value', $attributeOption->name);
-            });
-        }
         //Fungsi sort
-        if ($sort = preg_replace('/\s+/', '',$request->query('sort'))) {
-            $availableSorts = ['price', 'created_at'];
-            $availableOrder = ['asc', 'desc'];
-            $sortAndOrder = explode('-', $sort);
 
-            $sortBy = strtolower($sortAndOrder[0]);
-            $orderBy = strtolower($sortAndOrder[1]);
-
-            if (in_array($sortBy, $availableSorts) && in_array($orderBy, $availableOrder)) {
-                $products = $products->orderBy($sortBy, $orderBy);
-            }
-
-            $this->data['selectedSort'] = url('products?sort='. $sort);
-        }
 
         $this->data['products'] = $products->paginate(9); //Memanggil product status active 9 perhalaman
         return $this->load_theme('products.index',$this->data);
@@ -140,6 +120,37 @@ class ProductController extends Controller
         }
         return $products;
     }
+    private function filterProductsByAttribute($products,$request)
+    {
+        if ($attributeOptionID = $request->query('option')) {
+            $attributeOption = AttributeOption::findOrFail($attributeOptionID);
+
+            //menarik produk yang memiliki product atribute tertentu
+            $products = $products->whereHas('ProductAttributeValues', function ($query) use ($attributeOption) {
+                                    $query->where('attribute_id', $attributeOption->attribute_id)
+                                        ->where('text_value', $attributeOption->name);
+            });
+        }
+        return $products;
+    }
+    //DIMATIKAN KARENA TIDAK BISA JALAN YANG SORT
+    /*private function sortProducts($products,$request)
+    {
+        if ($sort = preg_replace('/\s+/', '',$request->query('sort'))) {
+            $availableSorts = ['price', 'created_at'];
+            $availableOrder = ['asc', 'desc'];
+            $sortAndOrder = explode('-', $sort);
+
+            $sortBy = strtolower($sortAndOrder[0]);
+            $orderBy = strtolower($sortAndOrder[1]);
+
+            if (in_array($sortBy, $availableSorts) && in_array($orderBy, $availableOrder)) {
+                $products = $products->orderBy($sortBy, $orderBy);
+            }
+
+            $this->data['selectedSort'] = url('products?sort='. $sort);
+        }
+    }*/
     /**
      * Display the specified resource.
      *
