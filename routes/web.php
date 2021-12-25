@@ -19,6 +19,11 @@ use Illuminate\Support\Facades\Route; //pengganti yang diatas karena error
 Route::get('/', 'HomeController@index');
 Route::get('/products','ProductController@index');
 Route::get('/product/{slug}','ProductController@show'); //memanggil detail product dengan parameter slug
+//Route untuk carts
+Route::get('/carts', 'CartController@index');
+Route::get('/carts/remove/{cartID}', 'CartController@destroy');
+Route::post('/carts', 'CartController@store');
+Route::post('/carts/update', 'CartController@update');
 
 Route::group(
     //untuk melindungi halaman di route ini dengan sistem login di auth
