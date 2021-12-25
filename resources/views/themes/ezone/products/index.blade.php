@@ -26,10 +26,6 @@
 									<div class="shop-found">
 										<p><span>{{ count($products) }}</span> Product Found of <span>{{ $products->total() }}</span></p>
 									</div>
-									<div class="shop-selector">
-										<label>Sort By : </label>
-										{{ Form::select('sort', $sorts , $selectedSort ,array('onChange' => 'this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);')) }}
-									</div>
 								</div>
 								<div class="shop-filter-tab">
 									<div class="shop-tab nav" role=tablist>
