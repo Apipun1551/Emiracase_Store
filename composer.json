@@ -8,8 +8,9 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2.5|^8.0",
-        "doctrine/dbal": "^2.6",
+        "php": "^7.2",
+        "darryldecode/cart": "^4.1",
+        "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.4",
         "laracasts/flash": "^3.2",
         "laravel/framework": "^6.20.26",
