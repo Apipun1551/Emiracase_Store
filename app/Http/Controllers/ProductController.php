@@ -54,26 +54,7 @@ class ProductController extends Controller
         //
         $products=Product::active();
 
-        //menangkap imputan user untuk query
-        if ($q = $request->query('q')) {
-            $q = str_replace('-', ' ', Str::slug($q));
-
-            $products = $products->whereRaw('MATCH(name, slug, short_description, description) AGAINST (? IN NATURAL LANGUAGE MODE)', [$q]);
-
-            $this->data['q'] = $q;
-        }
-        //untuk memunculkan product dengan category yang di klik di sidebar user
-        if ($categorySlug = $request->query('category')) {
-            $category = Category::where('slug', $categorySlug)->firstOrFail();//jika tidak ditemukan maka 404
-            //untuk mendapatkan id anak category
-            $childIds = Category::childIds($category->id);
-            //untuk memunculkan semua category (parent dan child)
-            $categoryIds = array_merge([$category->id], $childIds);
-            //menarik produk dengan category di klik
-            $products = $products->whereHas('categories', function ($query) use ($categoryIds) {
-                            $query->whereIn('categories.id', $categoryIds);
-            });
-        }
+        $products=$this->searchProducts($products, $request);
         //deklarasi nilai
         $lowPrice = null;
         $highPrice = null;
@@ -128,12 +109,30 @@ class ProductController extends Controller
         return $this->load_theme('products.index',$this->data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private function searchProducts($products, $request)
+    {
+        //menangkap imputan user untuk query
+        if ($q = $request->query('q')) {
+            $q = str_replace('-', ' ', Str::slug($q));
 
+            $products = $products->whereRaw('MATCH(name, slug, short_description, description) AGAINST (? IN NATURAL LANGUAGE MODE)', [$q]);
+
+            $this->data['q'] = $q;
+        }
+        //untuk memunculkan product dengan category yang di klik di sidebar user
+        if ($categorySlug = $request->query('category')) {
+            $category = Category::where('slug', $categorySlug)->firstOrFail();//jika tidak ditemukan maka 404
+            //untuk mendapatkan id anak category
+            $childIds = Category::childIds($category->id);
+            //untuk memunculkan semua category (parent dan child)
+            $categoryIds = array_merge([$category->id], $childIds);
+            //menarik produk dengan category di klik
+            $products = $products->whereHas('categories', function ($query) use ($categoryIds) {
+                            $query->whereIn('categories.id', $categoryIds);
+            });
+        }
+        return $products;
+    }
     /**
      * Display the specified resource.
      *
