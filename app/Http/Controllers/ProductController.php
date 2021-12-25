@@ -55,30 +55,9 @@ class ProductController extends Controller
         $products=Product::active();
 
         $products=$this->searchProducts($products, $request);
+        $product=$this->filterProductsByPriceRange($products,$request);
         //deklarasi nilai
-        $lowPrice = null;
-        $highPrice = null;
 
-        if ($priceSlider = $request->query('price')) {
-            $prices = explode('-', $priceSlider);
-
-            $lowPrice = !empty($prices[0]) ? (float)$prices[0] : $this->data['minPrice'];//jika tidak ada filter low maka harga minimal barang yang ada
-            $highPrice = !empty($prices[1]) ? (float)$prices[1] : $this->data['maxPrice'];//jika tidak ada filter max maka harga maksimal barang yang ada
-
-            if ($lowPrice && $highPrice) {
-                $products = $products->where('price', '>=', $lowPrice)
-                                ->where('price', '<=', $highPrice)
-                                //pengecekan yang varian untuk configurable
-                                ->orWhereHas('variants', function ($query) use ($lowPrice, $highPrice) {
-                                    $query->where('price', '>=', $lowPrice)
-                                        ->where('price', '<=', $highPrice);
-                                });
-
-                //mengembalikan nilai untuk filter harga
-                $this->data['minPrice'] = $lowPrice;
-                $this->data['maxPrice'] = $highPrice;
-            }
-        }
 
         if ($attributeOptionID = $request->query('option')) {
             $attributeOption = AttributeOption::findOrFail($attributeOptionID);
@@ -130,6 +109,34 @@ class ProductController extends Controller
             $products = $products->whereHas('categories', function ($query) use ($categoryIds) {
                             $query->whereIn('categories.id', $categoryIds);
             });
+        }
+        return $products;
+    }
+
+    private function filterProductsByPriceRange($products,$request)
+    {
+        $lowPrice = null;
+        $highPrice = null;
+
+        if ($priceSlider = $request->query('price')) {
+            $prices = explode('-', $priceSlider);
+
+            $lowPrice = !empty($prices[0]) ? (float)$prices[0] : $this->data['minPrice'];//jika tidak ada filter low maka harga minimal barang yang ada
+            $highPrice = !empty($prices[1]) ? (float)$prices[1] : $this->data['maxPrice'];//jika tidak ada filter max maka harga maksimal barang yang ada
+
+            if ($lowPrice && $highPrice) {
+                $products = $products->where('price', '>=', $lowPrice)
+                                ->where('price', '<=', $highPrice)
+                                //pengecekan yang varian untuk configurable
+                                ->orWhereHas('variants', function ($query) use ($lowPrice, $highPrice) {
+                                    $query->where('price', '>=', $lowPrice)
+                                        ->where('price', '<=', $highPrice);
+                                });
+
+                //mengembalikan nilai untuk filter harga
+                $this->data['minPrice'] = $lowPrice;
+                $this->data['maxPrice'] = $highPrice;
+            }
         }
         return $products;
     }
